@@ -1,0 +1,35 @@
+{
+  "name": "material-blend",
+  "version": "0.0.1",
+  "preferGlobal": true,
+  "description": "A tool for creating and developing Material Blend web applications.",
+  "bin": {
+    "mblend": "bin/mblend"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bump": "node lib/tasks/bumpversion"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blendsdk/material-blend-cli.git"
+  },
+  "keywords": [
+      "material design",
+      "material blend",
+      "material blend framework",
+      "typescript",
+      "ui framework",
+      "ui",
+      "html5",
+      "spa",
+      "framework",
+      "web"
+  ],
+  "author": "Gevik Babakhani (TrueSoftware B.V.)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/blendsdk/material-blend-cli/issues"
+  },
+  "homepage": "https://github.com/blendsdk/material-blend-cli#readme"
+}
