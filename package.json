@@ -1,6 +1,6 @@
 {
   "name": "material-blend",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "preferGlobal": true,
   "description": "A tool for creating and developing Material Blend web applications.",
   "bin": {
@@ -15,17 +15,25 @@
     "url": "git+https://github.com/blendsdk/material-blend-cli.git"
   },
   "keywords": [
-      "material design",
-      "material blend",
-      "material blend framework",
-      "typescript",
-      "ui framework",
-      "ui",
-      "html5",
-      "spa",
-      "framework",
-      "web"
+    "material design",
+    "material blend",
+    "material blend framework",
+    "typescript",
+    "ui framework",
+    "ui",
+    "html5",
+    "spa",
+    "framework",
+    "web"
   ],
+  "dependencies": {
+    "colors": "^1.1.2",
+    "del": "^2.2.0",
+    "fs-extra": "^0.30.0",
+    "uglify-js": "^2.6.2",
+    "version-comparison": "^1.0.2",
+    "yargs": "^4.7.1"
+  },
   "author": "Gevik Babakhani (TrueSoftware B.V.)",
   "license": "Apache-2.0",
   "bugs": {

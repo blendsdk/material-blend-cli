@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
-'use strict';
-
-console.log('TODO ');
+var Blend = require(__dirname + '/blend-cli.js');
+var client = new Blend.BlendClient(__dirname + '/../');
+client.run();
