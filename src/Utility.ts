@@ -13,14 +13,15 @@ interface DownloadInterface {
     local: string;
 }
 
-interface NodePackageInterface {
-    version?:string
+interface NpmPackageInterface {
+    version: string
 }
 
 export abstract class Utility {
 
     protected minCompassVersion: string;
     protected minTypeScriptVersion: string;
+    protected utilityPackage: NpmPackageInterface;
 
     public abstract run(): void;
 
@@ -28,11 +29,13 @@ export abstract class Utility {
         var me = this;
         me.minCompassVersion = '1.0.3';
         me.minTypeScriptVersion = '1.8.10';
+        me.utilityPackage = me.readNpmPackage(__dirname + '/../package.json');
+
     }
 
-    protected readNodePackage(path: string): NodePackageInterface {
+    protected readNpmPackage(path: string): NpmPackageInterface {
         var me = this;
-        return <NodePackageInterface>JSON.parse(fs.readFileSync(path).toString());
+        return <NpmPackageInterface>JSON.parse(fs.readFileSync(me.makePath(path)).toString());
     }
 
     /**

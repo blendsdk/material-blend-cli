@@ -14,9 +14,10 @@ export class BlendClient extends UtilityModule.Utility {
      * Entry point
      */
     public run() {
-        console.log("\n")
-        console.log("MaterialBlend Application Builder v1.0\n");
         var me = this;
+        console.log("\n")
+        console.log("MaterialBlend Application Builder v" + me.utilityPackage.version + "\n");
+
     }
 
 }

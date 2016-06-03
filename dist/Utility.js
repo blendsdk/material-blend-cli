@@ -28,10 +28,11 @@ var Utility = (function () {
         var me = this;
         me.minCompassVersion = '1.0.3';
         me.minTypeScriptVersion = '1.8.10';
+        me.utilityPackage = me.readNpmPackage(__dirname + '/../package.json');
     }
-    Utility.prototype.readNodePackage = function (path) {
+    Utility.prototype.readNpmPackage = function (path) {
         var me = this;
-        return JSON.parse(fs.readFileSync(path).toString());
+        return JSON.parse(fs.readFileSync(me.makePath(path)).toString());
     };
     Utility.prototype.fileExists = function (path) {
         try {
