@@ -1,15 +1,12 @@
-/// <reference path="../typings/node.d.ts" />
-/// <reference path="../typings/packages.d.ts" />
-/// <reference path="../typings/colors.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 
-var fs = require('fs');
-var fse = require('fs-extra');
-var del = require('del');
-var path = require('path');
-var childProcess = require('child_process');
-var uglify = require('uglify-js');
-var vercompare = require('version-comparison');
-var colors = require('colors');
+import fs = require('fs');
+import fse = require('fs-extra');
+import path = require('path');
+import childProcess = require('child_process');
+import uglify = require('uglify-js');
+import colors = require('colors');
+import compareVersion = require('compare-version');
 
 interface DownloadInterface {
     remote: string;
@@ -20,7 +17,7 @@ interface NodePackageInterface {
     version?:string
 }
 
-abstract class Uility {
+export abstract class Utility {
 
     protected minCompassVersion: string;
     protected minTypeScriptVersion: string;
@@ -35,7 +32,7 @@ abstract class Uility {
 
     protected readNodePackage(path: string): NodePackageInterface {
         var me = this;
-        return <NodePackageInterface>JSON.parse(fs.readFileSync(path));
+        return <NodePackageInterface>JSON.parse(fs.readFileSync(path).toString());
     }
 
     /**
@@ -120,7 +117,7 @@ abstract class Uility {
     protected downloadFile(source: string, dest: string, callback: Function) {
         var me = this,
             command = 'curl -o "' + dest + '" "' + source + '"' + (process.env.http_proxy || null ? ' --proxy "' + process.env.http_proxy + '"' : '');
-        childProcess.exec(command, { cwd: __dirname }, function(error: string, stdout: any, stderr: any) {
+        childProcess.exec(command, { cwd: __dirname }, function(error: Error, stdout: any, stderr: any) {
             if (!error) {
                 if (me.fileExists(dest)) {
                     callback.apply(me, [true]);
@@ -198,9 +195,7 @@ abstract class Uility {
     protected reCreateFolder(folder: string) {
         var me = this;
         if (me.dirExists(folder)) {
-            del.sync(folder, {
-                force: true
-            });
+            fse.removeSync(folder);
         }
         fs.mkdirSync(folder);
     }
@@ -210,7 +205,7 @@ abstract class Uility {
      */
     protected checkCURLSanity(callback: Function) {
         var me = this;
-        childProcess.exec('curl -V', { cwd: __dirname }, function(error: string, stdout: any, stderr: any) {
+        childProcess.exec('curl -V', { cwd: __dirname }, function(error: Error, stdout: any, stderr: any) {
             if (!error) {
                 callback.apply(me, [null]);
             } else {
@@ -224,7 +219,7 @@ abstract class Uility {
      */
     protected checkCompassSanity(callback: Function) {
         var me = this;
-        childProcess.exec('compass -v', { cwd: __dirname }, function(error: string, stdout: any, stderr: any) {
+        childProcess.exec('compass -v', { cwd: __dirname }, function(error: Error, stdout: any, stderr: any) {
             if (!error) {
                 var parts: Array<string> = stdout.split("\n");
                 if (parts.length < 1) {
@@ -234,7 +229,7 @@ abstract class Uility {
                 if (parts.length !== 3) {
                     callback.apply(me, ['Could not read Compass version!']);
                 }
-                if (vercompare(parts[1], me.minCompassVersion) !== -1) {
+                if (compareVersion(parts[1], me.minCompassVersion) !== -1) {
                     callback.apply(me, [null]);
                 } else {
                     callback.apply('Invalid Compass version! Found ' + parts[1] + ', but we require as least ' + me.minCompassVersion)
@@ -250,13 +245,13 @@ abstract class Uility {
      */
     protected checkTypeScriptSanity = function(callback: Function) {
         var me = this;
-        childProcess.exec('tsc -v', { cwd: __dirname }, function(error: string, stdout: any, stderr: any) {
+        childProcess.exec('tsc -v', { cwd: __dirname }, function(error: Error, stdout: any, stderr: any) {
             if (!error) {
                 var parts: Array<string> = stdout.trim().split(" ");
                 if (parts.length != 2) {
                     callback.apply(me, ['Could not recognize TypeScript!']);
                 }
-                if (vercompare(parts[1], me.minTypeScriptVersion) !== -1) {
+                if (compareVersion(parts[1], me.minTypeScriptVersion) !== -1) {
                     callback.apply(me, [null]);
                 } else {
                     callback.apply('Invalid TypeScript version! Found ' + parts[1] + ', but we require as least ' + me.minTypeScriptVersion)
@@ -272,7 +267,7 @@ abstract class Uility {
      */
     protected buildSources(folder: string, callback: Function) {
         var me = this;
-        childProcess.exec('tsc', { cwd: folder }, function(error: string, stdout: any, stderr: any) {
+        childProcess.exec('tsc', { cwd: folder }, function(error: Error, stdout: any, stderr: any) {
             if (!error) {
                 callback.apply(me, [null]);
             } else {

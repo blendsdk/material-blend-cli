@@ -1,6 +1,6 @@
 {
   "name": "material-blend",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "preferGlobal": true,
   "description": "A tool for creating and developing Material Blend web applications.",
   "bin": {
@@ -28,8 +28,10 @@
   ],
   "dependencies": {
     "colors": "^1.1.2",
+    "compare-version": "^0.1.2",
     "del": "^2.2.0",
     "fs-extra": "^0.30.0",
+    "mustache": "^2.2.1",
     "uglify-js": "^2.6.2",
     "version-comparison": "^1.0.2",
     "yargs": "^4.7.1"

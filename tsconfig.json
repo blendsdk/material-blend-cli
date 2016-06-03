@@ -7,7 +7,7 @@
         "noImplicitAny": true,
         "declaration": false,
         "removeComments": true,
-        "outDir": "build"
+        "outDir": "bin"
     },
     "exclude": [
         "node_modules",
