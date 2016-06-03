@@ -1,6 +1,3 @@
 #!/bin/bash
+rm -fR dist
 tsc
-#cat copyright.txt \
-#    build/Utility.js  \
-#    build/BlendClient.js \
-#    |  uglifyjs > bin/blend-cli.js

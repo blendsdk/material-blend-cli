@@ -1,3 +1,5 @@
 make-cli.sh
 copyright.txt
 build
+src
+typings
