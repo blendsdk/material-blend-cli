@@ -5,7 +5,6 @@ import path = require('path');
 import childProcess = require('child_process');
 import uglify = require('uglify-js');
 import colors = require('colors');
-
 import * as UtilityModule from "./Utility";
 
 export class BlendClient extends UtilityModule.Utility {
@@ -15,9 +14,7 @@ export class BlendClient extends UtilityModule.Utility {
      */
     public run() {
         var me = this;
-        console.log("\n")
-        console.log("MaterialBlend Application Builder v" + me.utilityPackage.version + "\n");
-
+        me.printLog("\nMaterialBlend Application Builder v" + me.utilityPackage.version + "\n");
     }
 
 }

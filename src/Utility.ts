@@ -278,4 +278,18 @@ export abstract class Utility {
             }
         });
     }
+
+    /**
+     * Writes message to screen with newline
+     */
+    protected printLogLn(message: string) {
+        console.log(message);
+    }
+
+    /**
+     * Writes a message to screen without newline
+     */
+    protected printLog(message: string) {
+        process.stdout.write(message);
+    }
 }
