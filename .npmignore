@@ -3,3 +3,6 @@ copyright.txt
 build
 src
 typings
+typings.json
+tsconfig.json
+.*
