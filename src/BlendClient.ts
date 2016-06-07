@@ -14,7 +14,7 @@ export class BlendClient extends UtilityModule.Utility {
      */
     public run() {
         var me = this;
-        me.printLog("\nMaterialBlend Application Builder v" + me.utilityPackage.version + "\n");
+        me.println("\nMaterialBlend Application Builder v" + me.utilityPackage.version + "\n");
     }
 
 }
