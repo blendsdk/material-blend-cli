@@ -9,3 +9,5 @@ fi
 
 echo Installing typings
 typings install
+rm -fR dist
+tsc
