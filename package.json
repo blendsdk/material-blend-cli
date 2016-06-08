@@ -1,6 +1,6 @@
 {
   "name": "material-blend",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "preferGlobal": true,
   "description": "A tool for creating and developing Material Blend web applications.",
   "bin": {
