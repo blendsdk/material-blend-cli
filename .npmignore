@@ -6,3 +6,4 @@ typings
 typings.json
 tsconfig.json
 .*
+setup.sh
