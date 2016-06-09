@@ -31,6 +31,8 @@
     "compare-version": "^0.1.2",
     "del": "^2.2.0",
     "fs-extra": "^0.30.0",
+    "material-blend-sdk": "*",
+    "material-blend-theme-sdk": "*",
     "mustache": "^2.2.1",
     "uglify-js": "^2.6.2",
     "uglifycss": "0.0.20",
