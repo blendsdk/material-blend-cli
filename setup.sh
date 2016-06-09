@@ -10,4 +10,5 @@ fi
 echo Installing typings
 typings install
 rm -fR dist
+curl --proxy $HTTP_PROXY -o ./src/Utility.ts "https://raw.githubusercontent.com/blendsdk/material-blend/master/builder/src/Utility.ts"
 tsc
