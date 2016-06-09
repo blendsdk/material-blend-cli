@@ -1,7 +1,7 @@
 build
 node_modules
 dist
-typings
+/typings
 .typingsrc
 npm-debug.*
 temp
