@@ -5,13 +5,10 @@ import path = require('path');
 import childProcess = require('child_process');
 import uglify = require('uglify-js');
 import colors = require('colors');
+import compareVersion = require("compare-version");
 import * as UtilityModule from "./Utility";
 
 export class BlendClient extends UtilityModule.Utility {
-
-    protected getUserHomeFolder() {
-        return process.env.HOME || process.env.USERPROFILE;
-    }
 
     protected checkProjectRootFolder(folder: string): boolean {
         var me = this;
@@ -26,15 +23,78 @@ export class BlendClient extends UtilityModule.Utility {
         }
     }
 
+    protected installSDK(projectRoot: string, callback: Function) {
+        var me = this, queue: Array<Function> = [],
+            packages: Array<string> = [
+                `material-blend-sdk@"latest"`,
+                `material-blend-theme-sdk@"latest"`,
+            ]
+
+
+        packages.forEach(function (pkg: string) {
+            queue.push(function (cb: Function) {
+                childProcess.exec(`npm install ${pkg} --save`, { cwd: projectRoot }, function (error: Error, stdout: any, stderr: any) {
+                    if (!error) {
+                        me.println(colors.green(`Installed ${pkg}`));
+                        cb.apply(me, [null]);
+                    } else {
+                        cb.apply(me, [error]);
+                    }
+
+                });
+            })
+        });
+
+        me.runSerial(queue, function (error: string) {
+            if (!error) {
+                me.println(colors.green("Installing MaterialBlend Typings"));;
+                childProcess.execSync(`typings install --global --save file:node_modules/material-blend-sdk/typings/blend.d.ts`, {
+                    cwd: projectRoot
+                });
+                callback.apply(me, []);
+            } else {
+                me.println(colors.red(error));
+            }
+        });
+
+    }
+
+    protected compileStyles(projectRoot: string, compassInstalled: boolean) {
+        var me = this;
+        if (compassInstalled) {
+            me.println(colors.green("Initializing Styles"));
+            childProcess.execSync("compass compile", { cwd: projectRoot });
+        }
+    }
+
     protected initProject(template: string, projectRoot: string) {
         var me = this
-        if (me.checkProjectRootFolder(projectRoot)) {
-            projectRoot = fs.realpathSync(projectRoot);
-            me.println("Creating a new project in " + projectRoot);
-            fse.copySync(__dirname + "/../resources/templates/" + template, projectRoot);
-        } else {
-            me.println(colors.red(`ERROR: The project folder is not empty! (${fs.realpathSync(projectRoot)})`));
-        }
+
+        me.checkCompassSanity(function (compassError: string) {
+            var compassInstalled: boolean = (compassError === null);
+            if (!compassInstalled) {
+                me.println(colors.yellow(compassError));
+            }
+
+            me.checkTypingsSanity(function (error: string) {
+                if (!error) {
+                    if (me.checkProjectRootFolder(projectRoot)) {
+                        projectRoot = fs.realpathSync(projectRoot);
+                        me.println("Creating a new project in " + projectRoot);
+                        fse.copySync(__dirname + "/../resources/templates/" + template, projectRoot);
+                        me.installSDK(projectRoot, function () {
+                            me.compileStyles(projectRoot, compassInstalled);
+                            me.printAllDone();
+                        });
+                    } else {
+                        me.println(colors.red(`ERROR: The project folder is not empty! (${fs.realpathSync(projectRoot)})`));
+                    }
+                } else {
+                    me.println(colors.red("ERROR: " + error));
+                }
+            });
+
+        });
     }
 
     /**
@@ -56,8 +116,8 @@ export class BlendClient extends UtilityModule.Utility {
                     },
                     template: {
                         alias: "t",
-                        default: "simple",
-                        describe: "A template used to generate a new application."
+                        default: "basic",
+                        describe: "A template used to generate a new basic application."
                     }
                 })
                 .demand(1)
