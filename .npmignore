@@ -7,3 +7,4 @@ typings.json
 tsconfig.json
 .*
 setup.sh
+mkapp.sh
