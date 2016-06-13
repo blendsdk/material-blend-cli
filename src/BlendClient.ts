@@ -86,12 +86,22 @@ export class BlendClient extends UtilityModule.Utility {
             me.checkTypingsSanity(function (error: string) {
                 if (!error) {
                     if (me.checkProjectRootFolder(projectRoot)) {
+
                         projectRoot = fs.realpathSync(projectRoot);
+
                         me.println("Creating a new project in " + projectRoot);
                         fse.copySync(__dirname + "/../resources/templates/" + template, projectRoot);
+
                         me.installSDK(projectRoot, function () {
                             me.compileStyles(projectRoot, compassInstalled);
-                            me.printAllDone();
+                            me.println(colors.green("Compiling sources"));
+                            me.compileSources(projectRoot, function (error: string) {
+                                if (!error) {
+                                    me.printAllDone();
+                                } else {
+                                    me.println(colors.red("ERROR: " + error));
+                                }
+                            });
                         });
                     } else {
                         me.println(colors.red(`ERROR: The project folder is not empty! (${fs.realpathSync(projectRoot)})`));
@@ -100,7 +110,6 @@ export class BlendClient extends UtilityModule.Utility {
                     me.println(colors.red("ERROR: " + error));
                 }
             });
-
         });
     }
 
