@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "outFile": "web/js/app.js",
+        "noImplicitAny": true,
+        "removeComments": false,
+        "preserveConstEnums": true,
+        "declaration": false,
+        "inlineSourceMap": true,
+        "inlineSources": true
+    },
+    "files": [
+        "typings/index.d.ts",
+        "src/MyApplication.ts",
+        "src/Kickstart.ts"
+    ]
+}
