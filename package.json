@@ -1,14 +1,10 @@
 {
   "name": "material-blend",
-  "version": "2.0.2",
+  "version": "0.0.1",
   "preferGlobal": true,
   "description": "A tool for creating and developing Material Blend web applications.",
   "bin": {
     "mblend": "bin/mblend"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "bump": "node lib/tasks/bumpversion"
   },
   "repository": {
     "type": "git",
