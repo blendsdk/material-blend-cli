@@ -28,8 +28,17 @@ export class BlendClient extends UtilityModule.Utility {
             packages: Array<string> = [
                 `material-blend-sdk@"latest"`,
                 `material-blend-theme-sdk@"latest"`,
-            ]
-
+            ],
+            installBlendJS = function () {
+                me.println(colors.green("Installing MaterialBlend Runtime"));
+                fse.copySync(me.makePath(projectRoot + "/node_modules/material-blend-sdk/blend"), me.makePath(projectRoot + "/web/blend"));
+            },
+            installTypings = function () {
+                me.println(colors.green("Installing MaterialBlend Typings"));;
+                childProcess.execSync(`typings install --global --save file:node_modules/material-blend-sdk/typings/blend.d.ts`, {
+                    cwd: projectRoot
+                });
+            }
 
         packages.forEach(function (pkg: string) {
             queue.push(function (cb: Function) {
@@ -47,10 +56,8 @@ export class BlendClient extends UtilityModule.Utility {
 
         me.runSerial(queue, function (error: string) {
             if (!error) {
-                me.println(colors.green("Installing MaterialBlend Typings"));;
-                childProcess.execSync(`typings install --global --save file:node_modules/material-blend-sdk/typings/blend.d.ts`, {
-                    cwd: projectRoot
-                });
+                installBlendJS.apply(me, []);
+                installTypings.apply(me, []);
                 callback.apply(me, []);
             } else {
                 me.println(colors.red(error));
