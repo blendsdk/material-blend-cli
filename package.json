@@ -23,14 +23,8 @@
     "web"
   ],
   "dependencies": {
+    "blend-node-library": "*",
     "colors": "^1.1.2",
-    "compare-version": "^0.1.2",
-    "del": "^2.2.0",
-    "fs-extra": "^0.30.0",
-    "mustache": "^2.2.1",
-    "uglify-js": "^2.6.2",
-    "uglifycss": "0.0.20",
-    "version-comparison": "^1.0.2",
     "yargs": "^4.7.1"
   },
   "author": "Gevik Babakhani (TrueSoftware B.V.)",

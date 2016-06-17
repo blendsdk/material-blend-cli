@@ -2,19 +2,17 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
-        "inlineSourceMap": false,
-        "inlineSources": false,
+        "inlineSourceMap": true,
+        "inlineSources": true,
         "noImplicitAny": true,
         "declaration": false,
         "noImplicitUseStrict": true,
-        "removeComments": true,
+        "removeComments": false,
         "outDir": "dist"
     },
-    "exclude": [
-        "node_modules",
-        "tests",
-        "dist",
-        "temp",
-        "resources"
+    "files": [
+        "typings/index.d.ts",
+        "src/Application.ts",
+        "src/Main.ts"
     ]
 }

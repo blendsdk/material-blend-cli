@@ -1,4 +1,2 @@
 #!/usr/bin/env node
-var Blend = require(__dirname + '/../dist/BlendClient.js');
-var client = new Blend.BlendClient(__dirname + '/../');
-client.run();
+require(__dirname + '/../dist/Main.js');
