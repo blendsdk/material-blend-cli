@@ -1,4 +1,8 @@
 #!/bin/bash
+
+rm -fR node_modules
+rm -fR typings
+
 echo Updating package dependencies
 npm update
 
@@ -10,5 +14,3 @@ fi
 echo Installing typings
 typings install
 rm -fR dist
-curl --proxy "$HTTP_PROXY" -o ./src/Utility.ts "https://raw.githubusercontent.com/blendsdk/material-blend/master/builder/src/Utility.ts"
-tsc
