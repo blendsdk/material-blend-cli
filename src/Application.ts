@@ -57,8 +57,8 @@ export class Application extends Blend.builder.Application {
         var me = this,
             options = { cwd: me.appFolder };
         me.print(("Installing Typings, "));
-        me.childProcess.execute("typings", ["init"], options);
-        me.childProcess.execute("typings", ["install", "--save", "--global", "file:node_modules/material-blend-sdk/typings/blend.d.ts"], options)
+        me.childProcess.execute(me.childProcess.makeCommand("typings"), ["init"], options);
+        me.childProcess.execute(me.childProcess.makeCommand("typings"), ["install", "--save", "--global", "file:node_modules/material-blend-sdk/typings/blend.d.ts"], options)
         me.printDone();
     }
 
@@ -70,11 +70,11 @@ export class Application extends Blend.builder.Application {
                 `material-blend-theme-sdk`,
             ];
 
-        me.childProcess.execute("npm", ["init", "-y"], options);
+        me.childProcess.execute(me.childProcess.makeCommand("npm"), ["init", "-y"], options);
 
         packages.forEach(function (pkg: string) {
             me.print(`Installing ${pkg.replace("@\"latest\"", "")}, `);
-            me.childProcess.execute("npm", ["install", "--save", pkg], options);
+            me.childProcess.execute(me.childProcess.makeCommand("npm"), ["install", "--save", pkg], options);
             me.printDone();
         });
     }
